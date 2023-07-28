@@ -1,0 +1,64 @@
+@import "../variables";
+
+.slider {
+  padding: 40px 0;
+
+  .container {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    background-color: #f4efe9;
+    border-radius: 20px;
+  }
+
+  .slide_button {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    border: 1.5px solid #c8c8c8;
+    border-radius: 50%;
+    color: #c8c8c8;
+    background-color: rgba(0, 0, 0, 0.04);
+
+    &__left {
+      top: 50%;
+    }
+
+    &__right {
+      top: 50%;
+      right: -10px;
+    }
+  }
+
+  &__left {
+    padding: 16px 20px;
+
+    div {
+      padding: 20px 60px;
+    }
+
+    span {
+      color: #8bb43c;
+    }
+
+    h1 {
+      margin-bottom: 14px;
+    }
+
+    button {
+      width: 190px;
+      height: 45px;
+      background-color: #a5d364;
+      border: 0;
+      border-radius: 110px;
+      color: #fff;
+      font-size: 16px;
+      line-height: 19.36px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  }
+
+  &__right {
+  }
+}
