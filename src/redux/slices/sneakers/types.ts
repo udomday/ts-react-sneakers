@@ -6,13 +6,14 @@ export type SneakerItem = {
 };
 
 export enum Status {
-  LOADING = "loading",
-  SUCCESS = "success",
-  ERROR = "error",
+  LOADING = 'loading',
+  SUCCESS = 'success',
+  ERROR = 'error',
 }
 
 export interface SneakerSliceState {
   items: SneakerItem[];
   item: SneakerItem | {};
+  favorites: SneakerItem[];
   status: Status;
 }

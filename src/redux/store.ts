@@ -1,10 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
-import SneakerReducer from "./slices/sneakers/slice";
+import { configureStore } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
+import SneakerReducer from './slices/sneakers/slice';
+import CartReducer from './slices/cart/slice';
 
 export const store = configureStore({
   reducer: {
     sneaker: SneakerReducer,
+    cart: CartReducer,
   },
 });
 

@@ -1,15 +1,16 @@
-import React from "react";
-
-import "./scss/app.scss";
-import { Header, Slider } from "./components";
-import { Home } from "./pages";
+import './scss/app.scss';
+import { Favorite, Home } from './pages';
+import { Route, Routes } from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
 
 function App() {
   return (
-    <div className="wrapper">
-      <Header />
-      <Home />
-    </div>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route path="" element={<Home />} />
+        <Route path="favorite" element={<Favorite />} />
+      </Route>
+    </Routes>
   );
 }
 

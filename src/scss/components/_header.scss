@@ -1,7 +1,9 @@
-@import "../variables";
+@import '../variables';
 
 .header {
   padding: 40px 0;
+  margin-bottom: 40px;
+  border-bottom: 1px solid #f4f4f4;
 
   .container {
     display: flex;
