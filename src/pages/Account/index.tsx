@@ -1,37 +1,36 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectSneakers } from "../../redux/slices/sneakers/selectors";
-import { SneakerItem } from "../../redux/slices/sneakers/types";
-import { SneakerBlock } from "../../components";
 
 import go_back_icon from "../../assets/img/go_back_icon.svg";
 import { useNavigate } from "react-router-dom";
+import { OrderItem } from "../../components";
+import { selectOrders } from "../../redux/slices/orders/selectors";
 
-export const Favorite: React.FC = () => {
-  const { favorites } = useSelector(selectSneakers);
+export const Account: React.FC = () => {
   const navigate = useNavigate();
+  const items = useSelector(selectOrders);
 
   return (
     <div className="container">
-      {favorites.length ? (
+      {true ? (
         <>
-          <div className="home_header home_header__favorite">
+          <div className="home_header home_header__account">
             <div onClick={() => navigate(-1)} className="bttn_back_page">
               <img src={go_back_icon} />
             </div>
-            <h1>Мои закладки</h1>
+            <h1>Мои покупки</h1>
           </div>
-          <div className="grid_wrapper">
-            {favorites.map((favorite: SneakerItem, index: number) => (
-              <SneakerBlock key={index} {...favorite} />
+          <div className="grid_wrapper__account">
+            {items.map((item, index) => (
+              <OrderItem key={index} {...item} />
             ))}
           </div>
         </>
       ) : (
         <div className="container__empty">
           <div>
-            <h2>Закладок нет :(</h2>
-            <span>Вы ничего не добавляли в закладки</span>
+            <h2>У вас нет заказов</h2>
+            <span>Оформите хотя бы один заказ.</span>
             <button
               onClick={() => navigate(-1)}
               className="container__empty__bttn"

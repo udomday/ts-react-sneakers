@@ -1,12 +1,14 @@
-import React from 'react';
-import { CartItem } from '../CartItem';
-import { selectAll } from '../../redux/slices/cart/selectors';
-import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../../redux/store';
-import { openCloseCart } from '../../redux/slices/cart/slice';
+import React from "react";
+import { CartItem } from "../CartItem";
+import { selectAll } from "../../redux/slices/cart/selectors";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../redux/store";
+import { openCloseCart, removeAllItem } from "../../redux/slices/cart/slice";
 
-import red_close_icon from '../../assets/img/red_close_icon.svg';
-import empty_cart_icon from '../../assets/img/empty_cart_icon.svg';
+import red_close_icon from "../../assets/img/red_close_icon.svg";
+import empty_cart_icon from "../../assets/img/empty_cart_icon.svg";
+import { OrderStatus, OrderType } from "../../redux/slices/orders/types";
+import { createOrder } from "../../redux/slices/orders/slice";
 
 type OutsideClick = MouseEvent & {
   composedPath: () => [] & {
@@ -27,20 +29,40 @@ export const Cart: React.FC = () => {
       }
     };
 
-    document.body.addEventListener('click', handleClickOutside);
+    document.body.addEventListener("click", handleClickOutside);
 
     return () => {
-      document.body.removeEventListener('click', handleClickOutside);
+      document.body.removeEventListener("click", handleClickOutside);
     };
   }, []);
 
+  const newOrder = () => {
+    const date = new Date();
+    const orderitem: OrderType = {
+      sneakers: [...items],
+      date: `${date.getDate()}.${
+        date.getMonth() + 1 > 10
+          ? date.getMonth() + 1
+          : `0${date.getMonth() + 1}`
+      }.${date.getFullYear()}`,
+      status: OrderStatus.IN_PROCESS,
+    };
+
+    dispatch(createOrder(orderitem));
+    dispatch(removeAllItem());
+    dispatch(openCloseCart());
+  };
+
   return (
-    <div className={isOpen ? 'cart_root' : 'cart_root__hidden'}>
+    <div className={isOpen ? "cart_root" : "cart_root__hidden"}>
       <div ref={cartRef} className="cart_root__left"></div>
       <div className="cart_root__right">
         <div className="cart_header">
           <h2>Корзина</h2>
-          <div onClick={() => dispatch(openCloseCart())} className="bttn_remove">
+          <div
+            onClick={() => dispatch(openCloseCart())}
+            className="bttn_remove"
+          >
             <img src={red_close_icon} alt="close" />
           </div>
         </div>
@@ -60,7 +82,9 @@ export const Cart: React.FC = () => {
                 <span>Налог 5%:</span>
                 <b>{(totalPrice * 5) / 100} руб.</b>
               </div>
-              <button className="cart__bttn">Оформить заказ</button>
+              <button onClick={() => newOrder()} className="cart__bttn">
+                Оформить заказ
+              </button>
             </div>
           </>
         ) : (

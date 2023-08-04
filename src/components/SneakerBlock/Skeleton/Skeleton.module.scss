@@ -1,0 +1,27 @@
+.root {
+  border: 1px solid #f1f1f1;
+  padding: 20px;
+  width: 220px;
+  border-radius: 40px;
+  margin-bottom: 20px;
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+  div {
+    border-radius: 10px;
+    background-color: #f2f2f2;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+    gap: 8px;
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 22px;
+  }
+}

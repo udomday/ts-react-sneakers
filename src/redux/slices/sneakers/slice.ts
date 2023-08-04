@@ -1,10 +1,13 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { SneakerItem, SneakerSliceState, Status } from './types';
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { SneakerItem, SneakerSliceState, Status } from "./types";
+import { getFavoriteFromLS } from "../../../utils/getFromLS";
 
-export const fetchSneakers = createAsyncThunk('fetchSneakers', async () => {
+const { favorites } = getFavoriteFromLS();
+
+export const fetchSneakers = createAsyncThunk("fetchSneakers", async () => {
   const { data } = await axios.get<SneakerItem[]>(
-    `https://649c2ac904807571923799d3.mockapi.io/sneakers`,
+    `https://649c2ac904807571923799d3.mockapi.io/sneakers`
   );
   return data;
 });
@@ -12,19 +15,23 @@ export const fetchSneakers = createAsyncThunk('fetchSneakers', async () => {
 const initialState: SneakerSliceState = {
   items: [],
   item: {},
-  favorites: [],
+  favorites,
   status: Status.LOADING,
 };
 
 export const SneakerSlice = createSlice({
-  name: 'sneaker',
+  name: "sneaker",
   initialState,
   reducers: {
     addOrRemoveFavorite: (state, action: PayloadAction<SneakerItem>) => {
-      const findItem = state.favorites.find((obj) => obj.id === action.payload.id);
+      const findItem = state.favorites.find(
+        (obj) => obj.id === action.payload.id
+      );
 
       if (findItem) {
-        state.favorites = state.favorites.filter((obj) => obj.id !== action.payload.id);
+        state.favorites = state.favorites.filter(
+          (obj) => obj.id !== action.payload.id
+        );
       } else {
         state.favorites.push(action.payload);
       }
