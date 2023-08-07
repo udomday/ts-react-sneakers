@@ -8,13 +8,13 @@ import { useAppDispatch } from "../../redux/store";
 import { removeItem } from "../../redux/slices/cart/slice";
 
 export const CartItem: React.FC<CartItemType> = (props) => {
-  const { id, title, price, imgURL, count } = props;
+  const { id, title, price, imgurl, count } = props;
   const dispatch = useAppDispatch();
   return (
     <div className={styles.root}>
       <div
         className={styles.root__logo}
-        style={{ backgroundImage: `url(${imgURL})` }}
+        style={{ backgroundImage: `url(${imgurl})` }}
       ></div>
       <div className={styles.root__body}>
         <p>{title}</p>

@@ -6,3 +6,4 @@ export * from "./Cart";
 export * from "./CartItem";
 export * from "./SneakerBlock/Skeleton";
 export * from "./OrderItem";
+export * from "./AppRouter";

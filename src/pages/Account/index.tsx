@@ -12,7 +12,7 @@ export const Account: React.FC = () => {
 
   return (
     <div className="container">
-      {true ? (
+      {items.length ? (
         <>
           <div className="home_header home_header__account">
             <div onClick={() => navigate(-1)} className="bttn_back_page">
@@ -32,7 +32,7 @@ export const Account: React.FC = () => {
             <h2>У вас нет заказов</h2>
             <span>Оформите хотя бы один заказ.</span>
             <button
-              onClick={() => navigate(-1)}
+              onClick={() => navigate("/")}
               className="container__empty__bttn"
             >
               &#8592; Вернуться обратно

@@ -11,10 +11,12 @@ import { selectAll } from "../../redux/slices/cart/selectors";
 import { useNavigate } from "react-router-dom";
 import { selectFavorites } from "../../redux/slices/sneakers/selectors";
 import { selectOrders } from "../../redux/slices/orders/selectors";
+import { selectUser } from "../../redux/slices/users/selectors";
 
 export const Header: React.FC = () => {
   const dispatch = useAppDispatch();
   const { items, totalPrice } = useSelector(selectAll);
+  const { id, isAuth } = useSelector(selectUser);
   const favorites = useSelector(selectFavorites);
   const orders = useSelector(selectOrders);
   const navigate = useNavigate();
@@ -59,8 +61,14 @@ export const Header: React.FC = () => {
             <img onClick={() => dispatch(openCloseCart())} src={cart_icon} />
             <span>{totalPrice} руб.</span>
           </div>
-          <img onClick={() => navigate("/account")} src={account_icon}></img>
-          <img onClick={() => navigate("/favorite")} src={favorite_icon}></img>
+          <img
+            onClick={() => navigate(isAuth ? `/account/${id}` : `/login`)}
+            src={account_icon}
+          ></img>
+          <img
+            onClick={() => navigate(isAuth ? `/favorite/${id}` : `/login`)}
+            src={favorite_icon}
+          ></img>
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ export const OrderItem: React.FC<OrderType> = (props) => {
       <div className={styles.root__image}>
         {imgBlock.map((sneaker) => (
           <div>
-            <img src={sneaker.imgURL} />
+            <img src={sneaker.imgurl} />
           </div>
         ))}
       </div>
