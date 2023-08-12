@@ -8,7 +8,13 @@ import { openCloseCart, removeAllItem } from "../../redux/slices/cart/slice";
 import red_close_icon from "../../assets/img/red_close_icon.svg";
 import empty_cart_icon from "../../assets/img/empty_cart_icon.svg";
 import { OrderStatus, OrderType } from "../../redux/slices/orders/types";
-import { createOrder } from "../../redux/slices/orders/slice";
+import {
+  addOrder,
+  createOrder,
+  fetchOrders,
+} from "../../redux/slices/orders/slice";
+import { selectUserId } from "../../redux/slices/users/selectors";
+import { calcTotalPrice } from "../../utils/calcTotalPrice";
 
 type OutsideClick = MouseEvent & {
   composedPath: () => [] & {
@@ -19,6 +25,7 @@ type OutsideClick = MouseEvent & {
 export const Cart: React.FC = () => {
   const cartRef = React.useRef(null);
   const { isOpen, items, totalPrice } = useSelector(selectAll);
+  const userId = useSelector(selectUserId);
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
@@ -37,20 +44,28 @@ export const Cart: React.FC = () => {
   }, []);
 
   const newOrder = () => {
-    const date = new Date();
-    const orderitem: OrderType = {
-      sneakers: [...items],
-      date: `${date.getDate() >= 10 ? date.getDate() : `0${date.getDate()}`}.${
-        date.getMonth() + 1 >= 10
-          ? date.getMonth() + 1
-          : `0${date.getMonth() + 1}`
-      }.${date.getFullYear()}`,
-      status: OrderStatus.IN_PROCESS,
-    };
-
-    dispatch(createOrder(orderitem));
-    dispatch(removeAllItem());
-    dispatch(openCloseCart());
+    if (userId) {
+      const date = new Date();
+      const orderitem: OrderType = {
+        userId,
+        sneakers: [...items],
+        date: `${
+          date.getDate() >= 10 ? date.getDate() : `0${date.getDate()}`
+        }.${
+          date.getMonth() + 1 >= 10
+            ? date.getMonth() + 1
+            : `0${date.getMonth() + 1}`
+        }.${date.getFullYear()}`,
+        status: OrderStatus.IN_PROCESS,
+        totalPrice: calcTotalPrice(items),
+      };
+      console.log(orderitem);
+      dispatch(addOrder(orderitem));
+      dispatch(removeAllItem());
+      dispatch(openCloseCart());
+    } else {
+      alert("Необходимо авторизоваться, чтобы создать заказ");
+    }
   };
 
   return (

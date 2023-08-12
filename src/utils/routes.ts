@@ -22,7 +22,12 @@ export const adminRoutes: RouteType[] = [
   },
 ];
 
-export const authRoutes: RouteType[] = [];
+export const authRoutes: RouteType[] = [
+  {
+    path: ACCOUNT_ROUTE + "/:id",
+    Component: Account,
+  },
+];
 
 export const publicRoutes: RouteType[] = [
   {
@@ -38,11 +43,7 @@ export const publicRoutes: RouteType[] = [
     Component: Home,
   },
   {
-    path: FAVORITE_ROUTE + "/:id",
+    path: FAVORITE_ROUTE,
     Component: Favorite,
-  },
-  {
-    path: ACCOUNT_ROUTE + "/:id",
-    Component: Account,
   },
 ];

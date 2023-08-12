@@ -3,10 +3,10 @@ import React from "react";
 import styles from "./OrderItem.module.scss";
 import { OrderType } from "../../redux/slices/orders/types";
 
-export const OrderItem: React.FC<OrderType> = (props) => {
+export const OrderItem: React.FC<OrderType> = React.memo((props) => {
   const { sneakers, date, status } = props;
 
-  const imgBlock = sneakers.filter((_, index) => index <= 3);
+  const imgBlock = props.sneakers.filter((_, index) => index <= 3);
 
   return (
     <div className={styles.root}>
@@ -20,13 +20,13 @@ export const OrderItem: React.FC<OrderType> = (props) => {
       <div className={styles.root__info}>
         <div>
           <span>Дата заявки:</span>
-          <b>{date}</b>
+          <b>{props.date}</b>
         </div>
         <div>
           <span>Статус:</span>
-          <b>{status}</b>
+          <b>{props.status}</b>
         </div>
       </div>
     </div>
   );
-};
+});

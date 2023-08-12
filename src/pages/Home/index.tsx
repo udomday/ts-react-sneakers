@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { fetchSneakers } from "../../redux/slices/sneakers/slice";
 import { SneakerItem } from "../../redux/slices/sneakers/types";
 
-export const Home: React.FC = () => {
+export const Home: React.FC = React.memo(() => {
   const dispatch = useAppDispatch();
   const { items, status } = useSelector(selectSneakers);
 
@@ -35,4 +35,4 @@ export const Home: React.FC = () => {
       </div>
     </div>
   );
-};
+});

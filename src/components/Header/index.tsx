@@ -4,6 +4,8 @@ import header_logo from "../../assets/img/header_logo.svg";
 import account_icon from "../../assets/img/account_icon.svg";
 import cart_icon from "../../assets/img/cart_icon.svg";
 import favorite_icon from "../../assets/img/favorite_icon.svg";
+import admin_icon from "../../assets/img/admin_icon.svg";
+
 import { useAppDispatch } from "../../redux/store";
 import { openCloseCart } from "../../redux/slices/cart/slice";
 import { useSelector } from "react-redux";
@@ -65,10 +67,8 @@ export const Header: React.FC = () => {
             onClick={() => navigate(isAuth ? `/account/${id}` : `/login`)}
             src={account_icon}
           ></img>
-          <img
-            onClick={() => navigate(isAuth ? `/favorite/${id}` : `/login`)}
-            src={favorite_icon}
-          ></img>
+          <img onClick={() => navigate(`/favorite`)} src={favorite_icon}></img>
+          <img onClick={() => navigate(`/admin`)} src={admin_icon}></img>
         </div>
       </div>
     </div>

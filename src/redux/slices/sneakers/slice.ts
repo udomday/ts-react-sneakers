@@ -1,5 +1,4 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import { SneakerItem, SneakerSliceState, Status } from "./types";
 import { getFavoriteFromLS } from "../../../utils/getFromLS";
 import { $authHost, $host } from "../../../utils/http";
@@ -19,7 +18,7 @@ export const createSneaker = createAsyncThunk(
 );
 
 export const fetchSneakers = createAsyncThunk("fetchSneakers", async () => {
-  const { data } = await $host.get<SneakerItem[]>(`/api/sneakers`);
+  const { data } = await $host.get<SneakerItem[]>(`api/sneakers`);
 
   return data;
 });
@@ -27,7 +26,7 @@ export const fetchSneakers = createAsyncThunk("fetchSneakers", async () => {
 export const fetchOneSneaker = createAsyncThunk(
   "fetchOneSneaker",
   async (id: string) => {
-    const { data } = await $host.get<SneakerItem[]>(`/api/sneakers/` + id);
+    const { data } = await $host.get<SneakerItem[]>(`api/sneakers/` + id);
 
     return data;
   }
