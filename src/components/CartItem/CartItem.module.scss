@@ -13,12 +13,22 @@
     background-position: 0 1px;
     background-repeat: no-repeat;
     margin-right: 20px;
+
+    @media (max-width: 310px) {
+    }
   }
 
   &__body {
     display: flex;
     flex-direction: column;
-    font-size: 14px;
+
+    @media (max-width: 385px) {
+      font-size: 14px;
+    }
+
+    @media (max-width: 310px) {
+      font-size: 10px;
+    }
   }
 
   &__bttn_remove {

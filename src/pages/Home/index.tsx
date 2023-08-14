@@ -1,13 +1,13 @@
 import React from "react";
 
-import { Search, SneakerBlock } from "../../components";
+import { Search, Skeleton, SneakerBlock } from "../../components";
 import { useAppDispatch } from "../../redux/store";
 import { selectSneakers } from "../../redux/slices/sneakers/selectors";
 import { useSelector } from "react-redux";
 import { fetchSneakers } from "../../redux/slices/sneakers/slice";
 import { SneakerItem } from "../../redux/slices/sneakers/types";
 
-export const Home: React.FC = () => {
+export const Home: React.FC = React.memo(() => {
   const dispatch = useAppDispatch();
   const { items, status } = useSelector(selectSneakers);
 
@@ -20,6 +20,10 @@ export const Home: React.FC = () => {
     <SneakerBlock key={index} {...sneaker} />
   ));
 
+  const sneakersSkeleton = [...new Array(8)].map((_, index: number) => (
+    <Skeleton key={index} />
+  ));
+
   return (
     <div className="container">
       <div className="home_header">
@@ -27,8 +31,8 @@ export const Home: React.FC = () => {
         <Search />
       </div>
       <div className="grid_wrapper">
-        {status === "loading" ? <h1>ЗАГРУЗКА...</h1> : sneakers}
+        {status === "loading" ? sneakersSkeleton : sneakers}
       </div>
     </div>
   );
-};
+});

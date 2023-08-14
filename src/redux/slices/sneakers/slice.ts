@@ -1,30 +1,57 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { SneakerItem, SneakerSliceState, Status } from './types';
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { SneakerItem, SneakerSliceState, Status } from "./types";
+import { getFavoriteFromLS } from "../../../utils/getFromLS";
+import { $authHost, $host } from "../../../utils/http";
 
-export const fetchSneakers = createAsyncThunk('fetchSneakers', async () => {
-  const { data } = await axios.get<SneakerItem[]>(
-    `https://649c2ac904807571923799d3.mockapi.io/sneakers`,
-  );
+const { favorites } = getFavoriteFromLS();
+
+export const createSneaker = createAsyncThunk(
+  "createSneaker",
+  async (sneaker: SneakerItem) => {
+    const { data } = await $authHost.post<SneakerItem[]>(
+      `/api/sneakers`,
+      sneaker
+    );
+
+    return data;
+  }
+);
+
+export const fetchSneakers = createAsyncThunk("fetchSneakers", async () => {
+  const { data } = await $host.get<SneakerItem[]>(`api/sneakers`);
+
   return data;
 });
+
+export const fetchOneSneaker = createAsyncThunk(
+  "fetchOneSneaker",
+  async (id: string) => {
+    const { data } = await $host.get<SneakerItem[]>(`api/sneakers/` + id);
+
+    return data;
+  }
+);
 
 const initialState: SneakerSliceState = {
   items: [],
   item: {},
-  favorites: [],
+  favorites,
   status: Status.LOADING,
 };
 
 export const SneakerSlice = createSlice({
-  name: 'sneaker',
+  name: "sneaker",
   initialState,
   reducers: {
     addOrRemoveFavorite: (state, action: PayloadAction<SneakerItem>) => {
-      const findItem = state.favorites.find((obj) => obj.id === action.payload.id);
+      const findItem = state.favorites.find(
+        (obj) => obj.id === action.payload.id
+      );
 
       if (findItem) {
-        state.favorites = state.favorites.filter((obj) => obj.id !== action.payload.id);
+        state.favorites = state.favorites.filter(
+          (obj) => obj.id !== action.payload.id
+        );
       } else {
         state.favorites.push(action.payload);
       }
@@ -43,6 +70,19 @@ export const SneakerSlice = createSlice({
     builder.addCase(fetchSneakers.rejected, (state) => {
       state.status = Status.ERROR;
       state.items = [];
+    });
+
+    builder.addCase(fetchOneSneaker.pending, (state) => {
+      state.status = Status.LOADING;
+      state.item = {};
+    });
+    builder.addCase(fetchOneSneaker.fulfilled, (state, action) => {
+      state.item = action.payload[0];
+      state.status = Status.SUCCESS;
+    });
+    builder.addCase(fetchOneSneaker.rejected, (state) => {
+      state.status = Status.ERROR;
+      state.item = {};
     });
   },
 });

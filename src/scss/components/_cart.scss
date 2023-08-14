@@ -13,6 +13,18 @@
   &__left {
     width: 69%;
     background-color: rgba(0, 0, 0, 0.423);
+
+    @media (max-width: 1240px) {
+      width: 59%;
+    }
+
+    @media (max-width: 960px) {
+      width: 44%;
+    }
+
+    @media (max-width: 680px) {
+      width: 0;
+    }
   }
 
   &__right {
@@ -21,6 +33,18 @@
     width: 31%;
     padding: 30px;
     background-color: #fff;
+
+    @media (max-width: 1240px) {
+      width: 41%;
+    }
+
+    @media (max-width: 960px) {
+      width: 56%;
+    }
+
+    @media (max-width: 680px) {
+      width: 100%;
+    }
   }
 
   .cart {

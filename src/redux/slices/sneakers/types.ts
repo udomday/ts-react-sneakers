@@ -2,13 +2,13 @@ export type SneakerItem = {
   id: string;
   title: string;
   price: number;
-  imgURL: string;
+  imgurl: string;
 };
 
 export enum Status {
-  LOADING = 'loading',
-  SUCCESS = 'success',
-  ERROR = 'error',
+  LOADING = "loading",
+  SUCCESS = "success",
+  ERROR = "error",
 }
 
 export interface SneakerSliceState {

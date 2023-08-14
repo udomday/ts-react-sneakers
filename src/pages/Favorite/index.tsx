@@ -1,15 +1,16 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectSneakers } from '../../redux/slices/sneakers/selectors';
-import { SneakerItem } from '../../redux/slices/sneakers/types';
-import { SneakerBlock } from '../../components';
+import React from "react";
+import { useSelector } from "react-redux";
+import { selectSneakers } from "../../redux/slices/sneakers/selectors";
+import { SneakerItem } from "../../redux/slices/sneakers/types";
+import { SneakerBlock } from "../../components";
 
-import go_back_icon from '../../assets/img/go_back_icon.svg';
-import { useNavigate } from 'react-router-dom';
+import go_back_icon from "../../assets/img/go_back_icon.svg";
+import { useNavigate } from "react-router-dom";
 
 export const Favorite: React.FC = () => {
   const { favorites } = useSelector(selectSneakers);
   const navigate = useNavigate();
+
   return (
     <div className="container">
       {favorites.length ? (
@@ -31,6 +32,12 @@ export const Favorite: React.FC = () => {
           <div>
             <h2>Закладок нет :(</h2>
             <span>Вы ничего не добавляли в закладки</span>
+            <button
+              onClick={() => navigate(-1)}
+              className="container__empty__bttn"
+            >
+              &#8592; Вернуться обратно
+            </button>
           </div>
         </div>
       )}
