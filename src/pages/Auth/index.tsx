@@ -12,7 +12,7 @@ import { Status } from "../../redux/slices/sneakers/types";
 
 export const Auth: React.FC = () => {
   const location = useLocation();
-  const isLogin = location.pathname === LOGIN_ROUTE;
+  const isLogin = location.pathname === `/${LOGIN_ROUTE}`;
   const errEmailRef = React.useRef<HTMLParagraphElement>(null);
   const [mail, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
@@ -44,11 +44,21 @@ export const Auth: React.FC = () => {
         const authdata = { mail, password };
         if (isLogin) {
           dispatch(login(authdata)).then((data: any) => {
-            navigate("/account/" + data.payload.id);
+            const error = data.type.split("/");
+            if (error[1] === "rejected") {
+              alert("Неправильная почта или пароль");
+            } else {
+              navigate("/account/");
+            }
           });
         } else {
           dispatch(registration(authdata)).then((data: any) => {
-            navigate("/account/" + data.payload.id);
+            const error = data.type.split("/");
+            if (error[1] === "rejected") {
+              alert("Аккаунт с такой почтой уже существует");
+            } else {
+              navigate("/account/");
+            }
           });
         }
       } else {

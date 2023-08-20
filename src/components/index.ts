@@ -7,3 +7,4 @@ export * from "./CartItem";
 export * from "./SneakerBlock/Skeleton";
 export * from "./OrderItem";
 export * from "./AppRouter";
+export * from "./AdminBar";

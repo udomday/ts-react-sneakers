@@ -37,8 +37,6 @@ export const login = createAsyncThunk(
 
 const { id, mail, role, isAuth } = getUserFomLs() as User;
 
-console.log(id, mail, role, isAuth);
-
 const initialState: User = {
   id,
   mail,
@@ -87,12 +85,13 @@ export const UserSlice = createSlice({
       state.isAuth = false;
     });
     builder.addCase(login.fulfilled, (state, action) => {
+      console.log(action);
       state.id = action.payload.id;
       state.mail = action.payload.mail;
       state.role = action.payload.role;
       state.isAuth = true;
     });
-    builder.addCase(login.rejected, (state) => {
+    builder.addCase(login.rejected, (state, action) => {
       state.id = null;
       state.mail = null;
       state.role = null;
