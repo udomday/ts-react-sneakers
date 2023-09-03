@@ -1,36 +1,27 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { SneakerItem, SneakerSliceState, Status } from "./types";
-import { getFavoriteFromLS } from "../../../utils/getFromLS";
-import { $authHost, $host } from "../../../utils/http";
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { SneakerItem, SneakerSliceState, Status } from './types';
+import { getFavoriteFromLS } from '../../../utils/getFromLS';
+import { $authHost, $host } from '../../../utils/http';
 
 const { favorites } = getFavoriteFromLS();
 
-export const createSneaker = createAsyncThunk(
-  "createSneaker",
-  async (sneaker: SneakerItem) => {
-    const { data } = await $authHost.post<SneakerItem[]>(
-      `/api/sneakers`,
-      sneaker
-    );
+export const createSneaker = createAsyncThunk('createSneaker', async (sneaker: FormData) => {
+  const { data } = await $authHost.post<FormData>(`/api/sneakers`, sneaker);
 
-    return data;
-  }
-);
+  return data;
+});
 
-export const fetchSneakers = createAsyncThunk("fetchSneakers", async () => {
+export const fetchSneakers = createAsyncThunk('fetchSneakers', async () => {
   const { data } = await $host.get<SneakerItem[]>(`api/sneakers`);
 
   return data;
 });
 
-export const fetchOneSneaker = createAsyncThunk(
-  "fetchOneSneaker",
-  async (id: string) => {
-    const { data } = await $host.get<SneakerItem[]>(`api/sneakers/` + id);
+export const fetchOneSneaker = createAsyncThunk('fetchOneSneaker', async (id: string) => {
+  const { data } = await $host.get<SneakerItem[]>(`api/sneakers/` + id);
 
-    return data;
-  }
-);
+  return data;
+});
 
 const initialState: SneakerSliceState = {
   items: [],
@@ -40,18 +31,14 @@ const initialState: SneakerSliceState = {
 };
 
 export const SneakerSlice = createSlice({
-  name: "sneaker",
+  name: 'sneaker',
   initialState,
   reducers: {
     addOrRemoveFavorite: (state, action: PayloadAction<SneakerItem>) => {
-      const findItem = state.favorites.find(
-        (obj) => obj.id === action.payload.id
-      );
+      const findItem = state.favorites.find((obj) => obj.id === action.payload.id);
 
       if (findItem) {
-        state.favorites = state.favorites.filter(
-          (obj) => obj.id !== action.payload.id
-        );
+        state.favorites = state.favorites.filter((obj) => obj.id !== action.payload.id);
       } else {
         state.favorites.push(action.payload);
       }

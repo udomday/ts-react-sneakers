@@ -1,4 +1,4 @@
-import { Account, Admin, Favorite, Home } from '../pages';
+import { Account, Favorite, Home } from '../pages';
 import { Auth } from '../pages/Auth';
 import {
   ACCOUNT_ROUTE,
@@ -15,12 +15,7 @@ export type RouteType = {
   Component: React.FC;
 };
 
-export const adminRoutes: RouteType[] = [
-  {
-    path: ADMIN_ROUTE,
-    Component: Admin,
-  },
-];
+export const adminRoutes: RouteType[] = [];
 
 export const authRoutes: RouteType[] = [
   {

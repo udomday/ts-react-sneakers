@@ -1,7 +1,7 @@
-@import "./variables";
-@import "./libs/normalize";
+@import './variables';
+@import './libs/normalize';
 
-@import "./components/all";
+@import './components/all';
 
 body {
   background-color: $background;
@@ -73,7 +73,7 @@ body {
     }
 
     &__page {
-      padding: 15px;
+      padding: 30px;
       width: 80%;
     }
   }

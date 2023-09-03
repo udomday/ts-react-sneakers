@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import slider_image_1 from "../../assets/slider/slider_image_1.png";
-import slider_image_1_logo from "../../assets/slider/slider_image_1_logo.svg";
+import slider_image_1 from '../../../assets/slider/slider_image_1.png';
+import slider_image_1_logo from '../../../assets/slider/slider_image_1_logo.svg';
 
 export const Slider: React.FC = () => {
   return (

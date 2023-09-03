@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./Search.module.scss";
+import styles from './Search.module.scss';
 
-import input_icon from "../../assets/input/input_icon.svg";
-import clear_icon from "../../assets/input/clear_icon.svg";
+import input_icon from '../../../assets/input/input_icon.svg';
+import clear_icon from '../../../assets/input/clear_icon.svg';
 
 export const Search: React.FC = () => {
   const [value, setValue] = React.useState<string>();
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const onClickClear = () => {
-    setValue("");
+    setValue('');
     inputRef.current?.focus();
   };
 
@@ -33,8 +33,7 @@ export const Search: React.FC = () => {
           onClick={onClickClear}
           className={styles.clearIcon}
           src={clear_icon}
-          alt="clear_icon"
-        ></img>
+          alt="clear_icon"></img>
       )}
     </div>
   );

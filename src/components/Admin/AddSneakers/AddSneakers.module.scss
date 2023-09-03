@@ -1,0 +1,73 @@
+.root {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+
+  &_title {
+    margin-bottom: 20px;
+  }
+
+  &_main {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: column;
+
+    label {
+      cursor: pointer;
+
+      input[type='file'] {
+        display: none;
+      }
+    }
+
+    input,
+    label {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 12px 20px;
+      padding-left: 42px;
+      width: 100%;
+      border-radius: 10px;
+      font-size: 16px;
+
+      &:focus {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+
+  .input__success {
+    border: 1px solid rgb(13, 182, 13);
+  }
+
+  .button_bar {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      cursor: pointer;
+      width: 30%;
+      height: 50px;
+      background-color: #9dd458;
+      color: #fff;
+      font-weight: 600;
+      font-size: 16px;
+      border: none;
+      border-radius: 18px;
+    }
+    .delete {
+      background-color: #d94f4f;
+    }
+  }
+
+  .visible {
+    display: none;
+  }
+}
